@@ -5,6 +5,7 @@ import teamsRouter from './routes/teams';
 import activitiesRouter from './routes/activities';
 import leaderboardRouter from './routes/leaderboard';
 import workoutsRouter from './routes/workouts';
+import connectToDatabase from './config/database';
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ app.use('/api/teams', teamsRouter);
 app.use('/api/activities', activitiesRouter);
 app.use('/api/leaderboard', leaderboardRouter);
 app.use('/api/workouts', workoutsRouter);
+
+void connectToDatabase();
 
 app.listen(port, () => {
   console.log(`Backend listening on port ${port}`);
