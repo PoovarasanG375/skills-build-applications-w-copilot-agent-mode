@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { getApiBaseUrl } from '../utils/api';
 
 function Activities() {
   const [activities, setActivities] = useState([]);
@@ -8,7 +7,10 @@ function Activities() {
   useEffect(() => {
     async function loadActivities() {
       try {
-        const response = await fetch(`${getApiBaseUrl('activities')}/api/activities/`);
+        const apiUrl = import.meta.env.VITE_CODESPACE_NAME
+          ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities/`
+          : 'http://localhost:8000/api/activities/';
+        const response = await fetch(apiUrl);
         const payload = await response.json();
         const items = Array.isArray(payload) ? payload : payload.activities || payload.results || [];
         setActivities(items);
